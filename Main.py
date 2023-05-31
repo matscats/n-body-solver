@@ -1,24 +1,32 @@
 import numpy as np
+import sys
 from Body import Body
-from Modeling import rungeKuttaStep, CheckColision, calculateCenterOfMass
-from Utils import plotTrajectories
+from Modeling import rungeKuttaStep, checkColision, calculateCenterOfMass
+from Utils import plotTrajectories, printInformations
 from Config import *
 
-def main():
+def main(verbose : bool):
 
-    time = np.arange(ti, tf + h, h)                             # Array de cada instante de tempo
-    Body1 = Body(body_1_cfg)                                    # Cria o objeto corpo 1
-    Body2 = Body(body_2_cfg)                                    # Cria o objeto corpo 2
-    Body3 = Body(body_3_cfg)                                    # Cria o objeto corpo 3
+    time = np.arange(ti, tf + h, h)                                     # Array de cada instante de tempo
+    Body1 = Body(body_1_cfg)                                            # Cria o objeto corpo 1
+    Body2 = Body(body_2_cfg)                                            # Cria o objeto corpo 2
+    Body3 = Body(body_3_cfg)                                            # Cria o objeto corpo 3
+   
+    if verbose: printInformations(Body1, Body2, Body3)                  # Mostra as informações da modelagem
+                                                                        # Início da modelagem
     for i in range(len(time)):
-        rungeKuttaStep(Body1, Body2, Body3, h)                  # Atualiza um passo
-        calculateCenterOfMass(Body1, Body2, Body3)              # Calcula o centro de massa
-        if CheckColision(Body1, Body2, Body3):                  # Checa colisão
+        rungeKuttaStep(Body1, Body2, Body3, h)                          # Atualiza um passo
+        calculateCenterOfMass(Body1, Body2, Body3)                      # Calcula o centro de massa
+        if checkColision(Body1, Body2, Body3):                          # Checa colisão
             print("Houve uma colisão: simulação encerrada")
             print(f'A colisão ocorreu em t = {time[i]} anos')
             break
-        
-    plotTrajectories(Body1, Body2, Body3, True)                  # Plota o gráfico
+    if verbose: print("---------- Modelagem finalizada ----------")
+    plotTrajectories(Body1, Body2, Body3, True)                         # Plota o gráfico
 
 if __name__ == '__main__':
-    main()
+    verbose = sys.argv[1]
+    if verbose == 'verbose':
+        main(verbose=True)
+    else:
+        main(False)

@@ -11,23 +11,22 @@ class Body:
         self.vel = body_cfg['vel']
         self.mass = body_cfg['mass']
         self.size = body_cfg['size']
+        self.name = body_cfg['name']
         self.x = []
         self.y = []
         self.z = []
 
     def __str__(self) -> str:
         return f"""
-        ------- Informações do corpo -------
-        Posição inicial: {self.pos} u.a;
-        Velocidade Inicial: {self.vel} u.a/ano;
+        Posição inicial: {list(self.pos)} u.a;
+        Velocidade Inicial: {list(self.vel)} u.a/ano;
         Massa: {self.mass} massa solar;
-        Tamanho do diâmetro: {self.size} u.a;
-        ------------------------------------
+        Raio: {self.size} u.a;
         """
 
     def acceleration(self, pos_1, pos_2, m_1, m_2) -> float:
         """
-        RReturns the acceleration of the body
+        Returns the acceleration of the body
         """
         pos_dif_1 = self.pos - pos_1
         pos_dif_2 = self.pos - pos_2

@@ -71,7 +71,7 @@ def rungeKuttaStep(body_1 : Body, body_2 : Body, body_3 : Body, h : float) -> No
   body_3.y.append(body_3.pos[1])
   body_3.z.append(body_3.pos[2])
 
-def CheckColision(body_1, body_2, body_3) -> bool:
+def checkColision(body_1, body_2, body_3) -> bool:
   """
   This method check if a colision ocurred between the bodies
   """
