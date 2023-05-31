@@ -1,9 +1,15 @@
 import numpy as np
 import Body
-    
-def RungeKuttaStep(body_1 : Body, body_2 : Body, body_3 : Body, h : float) -> None:
+
+cm_coords = {
+  'x' : [],
+  'y' : [],
+  'z' : []
+}
+
+def rungeKuttaStep(body_1 : Body, body_2 : Body, body_3 : Body, h : float) -> None:
   """
-  Metodo de runge-kutta para atualizar os corpos
+  Updates one step of Runge Kutta method
   """
   # Primeiro passo
   # Corpo 1
@@ -67,7 +73,7 @@ def RungeKuttaStep(body_1 : Body, body_2 : Body, body_3 : Body, h : float) -> No
 
 def CheckColision(body_1, body_2, body_3) -> bool:
   """
-  Esse método checa de houve uma colisão e retorna uma valor booleano
+  This method check if a colision ocurred between the bodies
   """
   colision = False
   if np.linalg.norm(body_1.pos - body_2.pos) < body_1.size + body_2.size:
@@ -77,4 +83,14 @@ def CheckColision(body_1, body_2, body_3) -> bool:
   if np.linalg.norm(body_2.pos - body_3.pos) < body_2.size + body_3.size:
     colision = True
   return colision
-    
+
+def calculateCenterOfMass(body_1 : Body, body_2 : Body, body_3 : Body) -> None:
+  """
+  This method calculates the center of mass for the system of three bodies
+  """
+  center_of_mass = (body_1.mass * body_1.pos + body_2.mass * body_2.pos +
+                    body_3.mass * body_3.pos) / (body_1.mass + body_2.mass +
+                                                 body_3.mass)
+  cm_coords['x'].append(center_of_mass[0])
+  cm_coords['y'].append(center_of_mass[1])
+  cm_coords['z'].append(center_of_mass[2])

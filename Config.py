@@ -1,24 +1,27 @@
 import numpy as np
 
 G = 1.32712440018e20 * 3.1558149e7 ** 2 / 1.495978707e11 ** 3 # Newton's gravtational constant * solar mass * year² / u.a³
-h = 0.0001 # Tamanho do passo
+h = 0.001 # Tamanho do passo
 ti = 0 # Tempo inicial (anos)
-tf = 0.5 # Tempo final (anos)
+tf = 200 # Tempo final (anos)
 
-# Configurações do corpo 1:
-pos_1 = np.array([0.0,0.0,0.0])
-vel_1 = np.array([0.0,0.0,0.0])
-mass_1 = 100000.0
-size_1 = 0.1
+body_1_cfg = {
+  'pos' : np.array([0.5 * 53.26/1.495, 0.0, 0.0]),
+  'vel' : np.array([0.1 * 53.26/1.495 * 365.256/(79.91*365*0.51),0.1 * 53.26/1.495 * 365.256/(79.91*365*0.51),0.0]),
+  'mass' : 1.1,
+  'size' : 0.005
+}
 
-# Configurações do corpo 2:
-pos_2 = np.array([10.0,0.0,0.0]) 
-vel_2 = np.array([0.0, np.sqrt(G * 100000.0 / 10), 0.0])
-mass_2 = 1.0
-size_2 = 0.1
+body_2_cfg = {
+  'pos' : np.array([-0.5 * 53.26/1.495, 0.0, 0.0]),
+  'vel' : np.array([-0.5 * 53.26/1.495 * 365.256/(79.91*365*0.51),0.0,-1.0 * 53.26/1.495 * 365.256/(79.91*365*0.51)-0.01 * 53.26/1.495 * 365.256/(79.91*365*0.51)]),
+  'mass' : 0.907,
+  'size' : 0.00
+}
 
-# Configurações do corpo 3:
-pos_3 = np.array([5.0,5.0,-3.0])
-vel_3 = np.array([-0.9,0.1,-0.2])
-mass_3 = 0.0
-size_3 = 0.1
+body_3_cfg = {
+  'pos' : np.array([1000.0,1000.0,1000.0]),
+  'vel' : np.array([0.0,0.0,0.0]),
+  'mass' : 0.0,
+  'size' : 0.005
+}

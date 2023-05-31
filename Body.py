@@ -3,21 +3,31 @@ import numpy as np
 
 class Body:
 
-    def __init__(self, pos, vel, mass, size) -> None:
+    def __init__(self, body_cfg) -> None:
         """
-        Constutor da classe
+        Class constructor
         """
-        self.pos = pos
-        self.vel = vel
-        self.mass = mass
-        self.size = size
+        self.pos = body_cfg['pos']
+        self.vel = body_cfg['vel']
+        self.mass = body_cfg['mass']
+        self.size = body_cfg['size']
         self.x = []
         self.y = []
         self.z = []
 
+    def __str__(self) -> str:
+        return f"""
+        ------- Informações do corpo -------
+        Posição inicial: {self.pos} u.a;
+        Velocidade Inicial: {self.vel} u.a/ano;
+        Massa: {self.mass} massa solar;
+        Tamanho do diâmetro: {self.size} u.a;
+        ------------------------------------
+        """
+
     def acceleration(self, pos_1, pos_2, m_1, m_2) -> float:
         """
-        Retorna a aceleração do corpo
+        RReturns the acceleration of the body
         """
         pos_dif_1 = self.pos - pos_1
         pos_dif_2 = self.pos - pos_2
