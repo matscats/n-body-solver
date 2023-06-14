@@ -2,7 +2,7 @@ import numpy as np
 import sys
 from Body import Body
 from Modeling import rungeKuttaStep, checkColision, calculateCenterOfMass
-from Utils import plotTrajectories, printInformations
+from Utils import plotTrajectories, printInformations, animateTrajectories
 from Config import *
 
 def main(verbose : bool):
@@ -22,11 +22,12 @@ def main(verbose : bool):
             print(f'A colisão ocorreu em t = {time[i]} anos')
             break
     if verbose: print("---------- Modelagem finalizada ----------")
-    plotTrajectories(Body1, Body2, Body3, True)                         # Plota o gráfico
+    plotTrajectories(Body1, Body2, Body3, False)                        # Plota o gráfico
+    # animateTrajectories(Body1, Body2, Body3)                          # Salva a animação
 
 if __name__ == '__main__':
     verbose = sys.argv[1]
     if verbose == 'verbose':
-        main(verbose=True)
+        main(True)
     else:
         main(False)
