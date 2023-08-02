@@ -3,14 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-cm_coords = {
-  'x' : [],
-  'y' : [],
-  'z' : []
-}
+cm_coords = {"x": [], "y": [], "z": []}
 
 class Utils:
-
     @staticmethod
     def calculateCenterOfMass(bodies: list[Body]) -> None:
         """
@@ -19,40 +14,52 @@ class Utils:
         num = 0
         div = 0
         for i in range(len(bodies)):
-           num += bodies[i].pos * bodies[i].mass
-           div += bodies[i].mass
+            num += bodies[i].pos * bodies[i].mass
+            div += bodies[i].mass
         center_of_mass = num / div
-        cm_coords['x'].append(center_of_mass[0])
-        cm_coords['y'].append(center_of_mass[1])
-        cm_coords['z'].append(center_of_mass[2])
+        cm_coords["x"].append(center_of_mass[0])
+        cm_coords["y"].append(center_of_mass[1])
+        cm_coords["z"].append(center_of_mass[2])
 
     @staticmethod
-    def plotTrajectories(bodies: list[Body], show_center_of_mass : bool) -> None:
+    def plotTrajectories(bodies: list[Body], show_center_of_mass: bool) -> None:
         """
         Plota a trajetória de todos os corpos do sistema e o centro de massa (opcional)
         """
         fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
+        ax = fig.add_subplot(111, projection="3d")
 
         for i in range(len(bodies)):
             if bodies[i].mass:
-                ax.plot(bodies[i].x[::50], bodies[i].y[::50], bodies[i].z[::50], color=bodies[i].color, label=bodies[i].name)
+                ax.plot(
+                    bodies[i].x[::50],
+                    bodies[i].y[::50],
+                    bodies[i].z[::50],
+                    color=bodies[i].color,
+                    label=bodies[i].name,
+                )
 
         if show_center_of_mass:
-            ax.plot(cm_coords['x'], cm_coords['y'], cm_coords['z'], color='black', label='Centro de massa')
+            ax.plot(
+                cm_coords["x"],
+                cm_coords["y"],
+                cm_coords["z"],
+                color="black",
+                label="Centro de massa",
+            )
 
         ax.legend()
         plt.show()
 
     @staticmethod
-    def animateTrajectories(body_1: Body, body_2 : Body, body_3 : Body):
+    def animateTrajectories(body_1: Body, body_2: Body, body_3: Body):
         """
         Realiza uma animação 3d das trajetórias
         """
         print("Preparando animação")
 
         fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
+        ax = fig.add_subplot(111, projection="3d")
         body_1.x = body_1.x[::450]
         body_1.y = body_1.y[::450]
         body_1.z = body_1.z[::450]
@@ -66,21 +73,35 @@ class Utils:
         @staticmethod
         def update(frame):
             ax.cla()
-            ax.plot(body_1.x[:frame], body_1.y[:frame], body_1.z[:frame], label=body_1.name)
-            ax.plot(body_2.x[:frame], body_2.y[:frame], body_2.z[:frame], label=body_2.name)
-            ax.plot(body_3.x[:frame], body_3.y[:frame], body_3.z[:frame], label=body_3.name)
+            ax.plot(
+                body_1.x[:frame], body_1.y[:frame], body_1.z[:frame], label=body_1.name
+            )
+            ax.plot(
+                body_2.x[:frame], body_2.y[:frame], body_2.z[:frame], label=body_2.name
+            )
+            ax.plot(
+                body_3.x[:frame], body_3.y[:frame], body_3.z[:frame], label=body_3.name
+            )
 
-            ax.set_xlabel('x [ua]')
-            ax.set_ylabel('y [ua]')
-            ax.set_zlabel('z [ua]')
+            ax.set_xlabel("x [ua]")
+            ax.set_ylabel("y [ua]")
+            ax.set_zlabel("z [ua]")
             ax.legend()
 
-            ax.set_xlim(min(body_1.x + body_2.x + body_3.x), max(body_1.x + body_2.x + body_3.x))
-            ax.set_ylim(min(body_1.y + body_2.y + body_3.y), max(body_1.y + body_2.y + body_3.y))
-            ax.set_zlim(min(body_1.z + body_2.z + body_3.z), max(body_1.z + body_2.z + body_3.z))
+            ax.set_xlim(
+                min(body_1.x + body_2.x + body_3.x), max(body_1.x + body_2.x + body_3.x)
+            )
+            ax.set_ylim(
+                min(body_1.y + body_2.y + body_3.y), max(body_1.y + body_2.y + body_3.y)
+            )
+            ax.set_zlim(
+                min(body_1.z + body_2.z + body_3.z), max(body_1.z + body_2.z + body_3.z)
+            )
 
-        ani = FuncAnimation(fig, update, frames=range(len(body_1.x)), interval=60, blit=False)
-        ani.save('animacao.mp4', writer='ffmpeg')
+        ani = FuncAnimation(
+            fig, update, frames=range(len(body_1.x)), interval=60, blit=False
+        )
+        ani.save("animacao.mp4", writer="ffmpeg")
 
         print("Animação finalizada")
 
@@ -89,12 +110,14 @@ class Utils:
         """
         Calcula a distância entre dois corpos quaisquer
         """
-        return np.sqrt((body_1.x[i] - body_2.x[i])**2 +
-                    (body_1.y[i] - body_2.y[i])**2 +
-                    (body_1.z[i] - body_2.z[i])**2)
+        return np.sqrt(
+            (body_1.x[i] - body_2.x[i]) ** 2
+            + (body_1.y[i] - body_2.y[i]) ** 2
+            + (body_1.z[i] - body_2.z[i]) ** 2
+        )
 
     @staticmethod
-    def minDistance(body_1: Body, body_2 : Body) -> float:
+    def minDistance(body_1: Body, body_2: Body) -> float:
         """
         Calcula a mínima distância entre dois corpos durante o tempo da simulação
         """
@@ -104,10 +127,10 @@ class Utils:
             distance = Utils.calculateDistance(body_1, body_2, i)
             if distance < minimo:
                 minimo = distance
-        print(f'Distância mínima entre {body_1.name} e {body_2.name}: {minimo} ua')
+        print(f"Distância mínima entre {body_1.name} e {body_2.name}: {minimo} ua")
 
     @staticmethod
-    def maxDistance(body_1: Body, body_2 : Body) -> float:
+    def maxDistance(body_1: Body, body_2: Body) -> float:
         """
         Calcula a máxima distância entre dois corpos durante o tempo da simulação
         """
@@ -117,14 +140,16 @@ class Utils:
             distance = Utils.calculateDistance(body_1, body_2, i)
             if distance > maximo:
                 maximo = distance
-        print(f'Distância maxima entre {body_1.name} e {body_2.name}: {maximo} ua')
+        print(f"Distância maxima entre {body_1.name} e {body_2.name}: {maximo} ua")
 
     @staticmethod
     def printInformations(bodies: list[Body]) -> None:
         """
         Modo verboso do programa
         """
-        print(f"---------- Modelagem 3D do problema de {len(bodies)} corpos ----------\n")
+        print(
+            f"---------- Modelagem 3D do problema de {len(bodies)} corpos ----------\n"
+        )
         for i in range(len(bodies)):
             print(f"---------- Informações do corpo {i+1} ----------")
             print(bodies[i])

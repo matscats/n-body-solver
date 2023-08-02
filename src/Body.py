@@ -1,14 +1,14 @@
 import numpy as np
 
-class Body:
 
+class Body:
     def __init__(self, body_cfg) -> None:
-        self.pos = np.array(body_cfg['pos'])
-        self.vel = np.array(body_cfg['vel'])
-        self.mass = body_cfg['mass']
-        self.size = body_cfg['size']
-        self.name = body_cfg['name']
-        self.color = body_cfg['color']
+        self.pos = np.array(body_cfg["pos"])
+        self.vel = np.array(body_cfg["vel"])
+        self.mass = body_cfg["mass"]
+        self.size = body_cfg["size"]
+        self.name = body_cfg["name"]
+        self.color = body_cfg["color"]
         self.x = []
         self.y = []
         self.z = []

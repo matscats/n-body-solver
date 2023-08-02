@@ -3,8 +3,8 @@ from Config import Config
 from Modeling import Modeling
 from Utils import Utils
 
+
 class Simulation:
-    
     @staticmethod
     def Run() -> None:
         """
@@ -20,13 +20,10 @@ class Simulation:
         for i in range(len(time)):
             Modeling.rungeKuttaStep(cfg)
             if Modeling.checkColision(cfg.bodies):
-              print("Houve uma colisão: simulação encerrada")
-              print(f'A colisão ocorreu em t = {time[i]} anos')
-              break
+                print("Houve uma colisão: simulação encerrada")
+                print(f"A colisão ocorreu em t = {time[i]} anos")
+                break
 
         print("Simulação concluída com sucesso")
-        
+
         Utils.plotTrajectories(cfg.bodies, False)
-      
-        
-        
