@@ -2,7 +2,6 @@ from Body import Body
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from Modeling import cm_coords
 
 cm_coords = {
   'x' : [],

@@ -1,6 +1,3 @@
-from Body import Body
-import json
-import os
 import numpy as np
 from Config import Config
 from Modeling import Modeling
@@ -8,10 +5,8 @@ from Utils import Utils
 
 class Simulation:
     
-    def __init__(self):
-        pass
-  
-    def Run(self) -> None:
+    @staticmethod
+    def Run() -> None:
         """
         Executa a simulação
         """

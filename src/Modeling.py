@@ -3,7 +3,7 @@ from Body import Body
 from Config import Config
 
 class Modeling:
-    
+
     @staticmethod
     def calculate_acceleration(index : int, cfg : Config) -> np.ndarray:
         """
@@ -18,7 +18,7 @@ class Modeling:
         return acc
 
     @staticmethod
-    def rungeKuttaStep(self, cfg : Config) -> None:
+    def rungeKuttaStep(cfg : Config) -> None:
         """
         Calcula o próximo passo da EDO utilizando o método de Runge-Kutta de quarta ordem
         """
@@ -36,7 +36,7 @@ class Modeling:
 
         for i in range(cfg.N):
           # Calculates acceleration
-          acc_i = self.calculate_acceleration(bodies, i, cfg)
+          acc_i = Modeling.calculate_acceleration(i, cfg)
 
           # k1
           k1_pos[i] = bodies[i].vel * h

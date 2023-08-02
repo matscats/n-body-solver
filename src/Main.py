@@ -1,8 +1,7 @@
 from Simulation import Simulation
 
 def main():
-    sim = Simulation()
-    sim.Run()
+    Simulation.Run()
 
 if __name__ == '__main__':
     main()
