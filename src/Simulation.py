@@ -10,20 +10,19 @@ class Simulation:
         """
         Executa a simulação
         """
-        cfg = Config()
-        time = np.arange(cfg.ti, cfg.tf + cfg.h, cfg.h)
+        time = np.arange(Config.ti, Config.tf + Config.h, Config.h)
 
-        cfg.setSimulation()
+        Config.setData()
 
-        Utils.printInformations(cfg.bodies)
+        Utils.printInformations()
 
         for i in range(len(time)):
-            Modeling.rungeKuttaStep(cfg)
-            if Modeling.checkColision(cfg.bodies):
+            Modeling.rungeKuttaStep()
+            if Modeling.checkColision():
                 print("Houve uma colisão: simulação encerrada")
                 print(f"A colisão ocorreu em t = {time[i]} anos")
                 break
 
         print("Simulação concluída com sucesso")
 
-        Utils.plotTrajectories(cfg.bodies, False)
+        Utils.plotTrajectories(False)

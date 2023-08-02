@@ -1,18 +1,21 @@
 from Body import Body
+from Config import Config
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 cm_coords = {"x": [], "y": [], "z": []}
 
+
 class Utils:
     @staticmethod
-    def calculateCenterOfMass(bodies: list[Body]) -> None:
+    def calculateCenterOfMass() -> None:
         """
         Calcula o centro de massa entre os corpos do sistema
         """
         num = 0
         div = 0
+        bodies = Config.bodies
         for i in range(len(bodies)):
             num += bodies[i].pos * bodies[i].mass
             div += bodies[i].mass
@@ -22,12 +25,13 @@ class Utils:
         cm_coords["z"].append(center_of_mass[2])
 
     @staticmethod
-    def plotTrajectories(bodies: list[Body], show_center_of_mass: bool) -> None:
+    def plotTrajectories(show_center_of_mass: bool) -> None:
         """
         Plota a trajetória de todos os corpos do sistema e o centro de massa (opcional)
         """
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
+        bodies = Config.bodies
 
         for i in range(len(bodies)):
             if bodies[i].mass:
@@ -143,10 +147,11 @@ class Utils:
         print(f"Distância maxima entre {body_1.name} e {body_2.name}: {maximo} ua")
 
     @staticmethod
-    def printInformations(bodies: list[Body]) -> None:
+    def printInformations() -> None:
         """
         Modo verboso do programa
         """
+        bodies = Config.bodies
         print(
             f"---------- Modelagem 3D do problema de {len(bodies)} corpos ----------\n"
         )

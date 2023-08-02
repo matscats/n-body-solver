@@ -5,40 +5,41 @@ from Config import Config
 
 class Modeling:
     @staticmethod
-    def calculate_acceleration(index: int, cfg: Config) -> np.ndarray:
+    def calculate_acceleration(index: int) -> np.ndarray:
         """
         Calcula a aceleração do corpo[index] causada por todos os outros corpos
         """
-        bodies = cfg.bodies
+        bodies = Config.bodies
         acc = 0
-        for i in range(cfg.N):
+        for i in range(Config.N):
             if i != index:
                 pos_dif = bodies[index].pos - bodies[i].pos
                 acc += (-1) * (
-                    cfg.G * (bodies[i].mass * (pos_dif) / np.linalg.norm(pos_dif) ** 3)
+                    Config.G
+                    * (bodies[i].mass * (pos_dif) / np.linalg.norm(pos_dif) ** 3)
                 )
         return acc
 
     @staticmethod
-    def rungeKuttaStep(cfg: Config) -> None:
+    def rungeKuttaStep() -> None:
         """
         Calcula o próximo passo da EDO utilizando o método de Runge-Kutta de quarta ordem
         """
-        bodies = cfg.bodies
-        h = cfg.h
+        bodies = Config.bodies
+        h = Config.h
 
-        k1_pos = np.zeros((cfg.N, 3))
-        k1_vel = np.zeros((cfg.N, 3))
-        k2_pos = np.zeros((cfg.N, 3))
-        k2_vel = np.zeros((cfg.N, 3))
-        k3_pos = np.zeros((cfg.N, 3))
-        k3_vel = np.zeros((cfg.N, 3))
-        k4_pos = np.zeros((cfg.N, 3))
-        k4_vel = np.zeros((cfg.N, 3))
+        k1_pos = np.zeros((Config.N, 3))
+        k1_vel = np.zeros((Config.N, 3))
+        k2_pos = np.zeros((Config.N, 3))
+        k2_vel = np.zeros((Config.N, 3))
+        k3_pos = np.zeros((Config.N, 3))
+        k3_vel = np.zeros((Config.N, 3))
+        k4_pos = np.zeros((Config.N, 3))
+        k4_vel = np.zeros((Config.N, 3))
 
-        for i in range(cfg.N):
+        for i in range(Config.N):
             # Calcula a aceleração
-            acc_i = Modeling.calculate_acceleration(i, cfg)
+            acc_i = Modeling.calculate_acceleration(i)
 
             # k1
             k1_pos[i] = bodies[i].vel * h
@@ -70,11 +71,12 @@ class Modeling:
             bodies[i].z.append(bodies[i].pos[2])
 
     @staticmethod
-    def checkColision(bodies: list[Body]) -> bool:
+    def checkColision() -> bool:
         """
         Verifica se ocorreu uma colisão durante a simulação
         """
         colision = False
+        bodies = Config.bodies
         n = len(bodies)
         for i in range(n):
             for j in range(n):
