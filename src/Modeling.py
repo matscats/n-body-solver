@@ -35,7 +35,7 @@ class Modeling:
         k4_vel = np.zeros((cfg.N,3))
 
         for i in range(cfg.N):
-          # Calculates acceleration
+          # Calcula a aceleração
           acc_i = Modeling.calculate_acceleration(i, cfg)
 
           # k1
@@ -54,11 +54,11 @@ class Modeling:
           k4_pos[i] = (bodies[i].vel + k3_vel[i]) * h
           k4_vel[i] = acc_i * h
 
-          # Update
+          # Atualiza posição e velocidade
           bodies[i].pos += (k1_pos[i] + 2 * k2_pos[i] + 2 * k3_pos[i] + k4_pos[i]) / 6.0
           bodies[i].vel += (k1_vel[i] + 2 * k2_vel[i] + 2 * k3_vel[i] + k4_vel[i]) / 6.0
 
-          # Saves
+          # Salva as posições
           bodies[i].x.append(bodies[i].pos[0])
           bodies[i].y.append(bodies[i].pos[1])
           bodies[i].z.append(bodies[i].pos[2])
@@ -66,7 +66,7 @@ class Modeling:
     @staticmethod
     def checkColision(bodies : list[Body]) -> bool:
         """
-        This method check if a colision ocurred between the bodies
+        Verifica se ocorreu uma colisão durante a simulação
         """
         colision = False
         n = len(bodies)
