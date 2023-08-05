@@ -4,10 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-cm_coords = {"x": [], "y": [], "z": []}
-
 
 class Utils:
+    cm_coords = {"x": [], "y": [], "z": []}
+
     @staticmethod
     def calculateCenterOfMass() -> None:
         """
@@ -20,9 +20,9 @@ class Utils:
             num += bodies[i].pos * bodies[i].mass
             div += bodies[i].mass
         center_of_mass = num / div
-        cm_coords["x"].append(center_of_mass[0])
-        cm_coords["y"].append(center_of_mass[1])
-        cm_coords["z"].append(center_of_mass[2])
+        Utils.cm_coords["x"].append(center_of_mass[0])
+        Utils.cm_coords["y"].append(center_of_mass[1])
+        Utils.cm_coords["z"].append(center_of_mass[2])
 
     @staticmethod
     def plotTrajectories(show_center_of_mass: bool) -> None:
@@ -36,18 +36,18 @@ class Utils:
         for i in range(len(bodies)):
             if bodies[i].mass:
                 ax.plot(
-                    bodies[i].x[::50],
-                    bodies[i].y[::50],
-                    bodies[i].z[::50],
+                    bodies[i].x[::200],
+                    bodies[i].y[::200],
+                    bodies[i].z[::200],
                     color=bodies[i].color,
                     label=bodies[i].name,
                 )
 
         if show_center_of_mass:
             ax.plot(
-                cm_coords["x"],
-                cm_coords["y"],
-                cm_coords["z"],
+                Utils.cm_coords["x"],
+                Utils.cm_coords["y"],
+                Utils.cm_coords["z"],
                 color="black",
                 label="Centro de massa",
             )
@@ -110,15 +110,11 @@ class Utils:
         print("Animação finalizada")
 
     @staticmethod
-    def calculateDistance(body_1: Body, body_2: Body, i: int):
+    def calculateDistance(x0, x1, y0, y1, z0, z1):
         """
         Calcula a distância entre dois corpos quaisquer
         """
-        return np.sqrt(
-            (body_1.x[i] - body_2.x[i]) ** 2
-            + (body_1.y[i] - body_2.y[i]) ** 2
-            + (body_1.z[i] - body_2.z[i]) ** 2
-        )
+        return np.sqrt((x0 - x1) ** 2 + (y0 - y1) ** 2 + (z0 - z1) ** 2)
 
     @staticmethod
     def minDistance(body_1: Body, body_2: Body) -> float:

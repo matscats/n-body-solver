@@ -1,5 +1,4 @@
 import numpy as np
-from Body import Body
 from Config import Config
 
 
