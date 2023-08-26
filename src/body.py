@@ -5,6 +5,7 @@ class Body:
     """
     Represents a body
     """
+
     def __init__(self, body_cfg) -> None:
         self.pos = np.array(body_cfg["pos"])
         self.vel = np.array(body_cfg["vel"])

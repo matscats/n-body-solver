@@ -93,9 +93,7 @@ class Utils:
         Shows simulation informations
         """
         bodies = Config.bodies
-        print(
-            f"---------- {len(bodies)} bodies problem ----------\n"
-        )
+        print(f"---------- {len(bodies)} bodies problem ----------\n")
         for i in range(len(bodies)):
             print(f"---------- Body {i+1} ----------")
             print(bodies[i])
